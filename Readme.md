@@ -78,3 +78,143 @@ if (0) {
   console.log(123)  // 출력 안 됨
 }
 ```
+
+---
+
+#### 함수 복습
+
+###### function 함수이름(매개변수) {}
+
+```js
+function sum(x, y) {
+  if (x < 1) {
+    return 123
+  }
+  return x + y
+}
+
+const a = sum(1, 3) // a = 4
+console.log(a)  // 4
+```
+
+#### arguments 사용(매개변수 X)
+
+```js
+function div() {
+  console.log(arguments)
+  return arguments[0] - arguments[1]  // arguments[0] = 7, arguments[1] = 3
+}
+
+console.log(div(7, 3))  // 4
+```
+
+
+#### 익명 함수 (함수 이름 없음)
+
+```js
+const i = 5
+const j = function () {
+  console.log(i / 2)
+}
+
+j() // 2.5
+```
+
+
+#### 화살표 함수
+###### () => {} vs function () {}
+
+```js
+const double = function (x) {
+  return x * 2
+}
+console.log('double: ', double(7))  // double: 14
+
+/*
+매개변수 하나일 경우에만 소괄호 생략 가능
+const doubleArrow = (x , y) => { x * y }
+*/
+
+const doubleArrow = x => ({ name: 'Heropy' })
+console.log('doubleArrow', doubleArrow(7))
+```
+
+
+#### 즉시실행함수 (IIFE, Immediately-Invoked Function Expression)
+###### (function () {} )()  OR  (function () {} ())
+
+```js
+const b = 7
+function doubleI() {
+  console.log(b * 2)
+}
+doubleI();
+
+(function () {
+  console.log(b * 2)  // 14
+})();
+
+(function () {
+  console.log(b * 2)  // 14
+}());
+```
+
+
+#### 호이스팅(Hoisting)
+###### 함수 선언부가 유효범위 최상단으로 끌어올려지는 현상
+
+```js
+const c = 7
+
+doubleH()
+
+function doubleH() {
+  console.log(c * 3)
+}
+```
+
+
+
+#### 타이머 함수
+- __setTimeout(함수, 시간):__ 일정 시간(ms) 후 함수 실행
+```js
+const timer = setTimeout(() => {
+  console.log('Eunbin!')
+}, 3000)
+```  
+- __setInterval(함수, 시간):__ 시간 간격마다 함수 실행
+```js
+const timer = setInterval(() => {
+  console.log('Eunbin!')
+}, 3000)
+```  
+- __clearTimeout():__ 설정된 Timeout 함수를 종료
+``` js
+const h1El = document.querySelector('h1')
+h1El.addEventListener('click', () => {
+  clearTimeout(timer)
+})
+```  
+
+- __clearInterval():__ 설정된 Interval 함수를 종료
+``` js
+const h1El = document.querySelector('h1')
+h1El.addEventListener('click', () => {
+  clearInterval(timer)
+})
+```  
+
+#### 콜백(Callback)
+###### 함수의 인수로 사용되는 함수
+
+``` js
+function timeout(cb) {
+  setTimeout(() => {
+    console.log('Lee eunbin')
+    cb()
+  }, 3000)
+}
+timeout(() => {
+  console.log('Done!')
+})
+```
