@@ -45,10 +45,10 @@ const size = 17.1;  // decimal number
 console.log(`value: ${count}, type: ${typeof count}`);
 console.log(`value: ${size}, type: ${typeof size}`);
 
-// number - speicla numeric values: infinity, -infinity, NaN
-const infinity = 1 / 0;
-const negativeInfinity = -1 / 0;
-const nAn = 'not a number' / 2;
+// number - specical numeric values: infinity, -infinity, NaN
+const infinity = 1 / 0; // Infinity
+const negativeInfinity = -1 / 0;  // -Infinity
+const nAn = 'not a number' / 2;   // NaN
 console.log(infinity);
 console.log(negativeInfinity);
 console.log(nAn);
