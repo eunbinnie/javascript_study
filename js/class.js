@@ -1,113 +1,132 @@
-function User(first, last) {
-  this.firstName = first
-  this.lastName = last
-}
-User.prototype.getFullName = function () {
-  return `${this.firstName} ${this.lastName}`
-}
+'use strict';
+// Object-oriented programming
+// class: template
+// object: instance of a class
+// JavaScript classes
+// - introduced in ES6
+// - syntactical sugar over prototype-based inheritance
 
-// 생성자 함수
-const eunbin = new User('Eunbin', 'Lee')
-const amy = new User('Amy', 'Clarke')
-const neo = new User('Neo', 'Smith')
-
-console.log(eunbin.getFullName())
-console.log(amy.getFullName())
-console.log(neo.getFullName())
-
-
-// this
-// 일반(Normal) 함수는 호출 위치에서 따라 this 정의
-// 화살표(Arrow) 함수는 자신이 선언된 함수 범위에서 this 정의
-
-function Person(name) {
-  this.name = name
-}
-Person.prototype.normal = function () {
-  console.log(this.name)
-}
-Person.prototype.arrow = () => {
-  console.log(this.name)
-}
-
-const heropy = new Person('Heropy')
-
-heropy.normal()
-heropy.arrow()
-
-
-const timer = {
-  name: 'Eunbin!!',
-  timeout: function () {
-    setTimeout(() => {
-      console.log(this.name)
-    }, 2000)
+// 1. Class declarations
+class Person {
+  // constructor
+  constructor(name, age) {
+    // fields
+    this.name = name;
+    this.age = age;
   }
-}
-timer.timeout()
 
-
-// ES6 Classes
-
-const jennie = {
-  name: 'Jennie',
-  normal() {
-    console.log(this.name)
-  },
-  arrow: () => {
-    console.log(this.name)
-  }
-}
-jennie.normal()
-jennie.arrow()
-
-
-class Info {
-  constructor(first, last) {
-    this.firstName = first
-    this.lastName = last
-  }
-  getFullName() {
-    return `${this.firstName} ${this.lastName}`
+  // methods
+  speak() {
+    console.log(`${this.name}: hello!`);
   }
 }
 
-const lisa = new Info('Lisa', 'La')
-const jisoo = new Info('Jisoo', 'Kim')
-const rose = new Info('Rose', 'Park')
-
-console.log(lisa)
-console.log(jisoo.getFullName())
-console.log(rose.getFullName())
+const eunbin = new Person('eunbin', 24);
+console.log(eunbin.name);
+console.log(eunbin.age);
+eunbin.speak();
 
 
-// 상속(확장)
-class Vehicle {
-  constructor(name, wheel) {
-    this.name = name
-    this.wheel = wheel
+// 2. Getter and setters
+class User {
+  constructor(firstName, lastName, age) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+  }
+
+  get age() {
+    return this._age;
+  }
+
+  set age(value) {
+    // if (value < 0) {
+    //   throw Error('age can not be negative');
+    // }
+    this._age = value < 0 ? 0 : value;
   }
 }
-const myVehicle = new Vehicle('운송수단', 2)
-console.log(myVehicle)
 
-class Bicycle extends Vehicle {
-  constructor(name, wheel) {
-    super(name, wheel)  // super = Vehicle
+const user1 = new User('Steve', 'Job', -1);
+console.log(user1.age);
+
+
+// 3. Fields (public, private)
+// Too soon!
+class Experiment {
+  publicField = 2;
+  #privateField = 0;  // 외부 접근 불가
+}
+const experiment = new Experiment();
+console.log(experiment.publicField);
+console.log(experiment.privateFied);
+
+
+// 4. Static properties and methods
+// Too soon!
+class Article {
+  static publisher = 'Dream Coding';
+  constructor(articleNumber) {
+    this.articleNumber = articleNumber;
+  }
+
+  static printPublisher() {
+    console.log(Article.publisher);
   }
 }
-const myBicycle = new Bicycle('삼천리', 2)
-const daughterBicycle = new Bicycle('세발', 3)
-console.log(myBicycle)
-console.log(daughterBicycle)
 
-class Car extends Vehicle {
-  constructor(name, wheel, license) {
-    super(name, wheel)
-    this.license = license
+const article1 = new Article(1);
+const article2 = new Article(2);
+console.log(Article.publisher);
+Article.printPublisher();
+
+
+// 5. Inheritance
+// a way for one class to extend another class.
+class Shape {
+  constructor(width, height, color) {
+    this.width = width;
+    this.height = height;
+    this.color = color;
+  }
+
+  draw() {
+    console.log(`drawing ${this.color} color!`);
+  }
+
+  getArea() {
+    return this.width * this.height;
   }
 }
-const myCar = new Car('벤츠', 4, true)
-const daughtersCar = new Car('포르쉐', 4, false)
-console.log(myCar)
-console.log(daughtersCar)
+
+class Rectangle extends Shape { }
+class Triangle extends Shape {
+  draw() {
+    super.draw();
+    console.log(`${this.color} Triangle`);
+  }
+  getArea() {
+    return (this.width * this.height) / 2;
+  }
+
+  toString() {
+    return `Triangle: color: ${this.color}`;
+  }
+}
+
+const rectangle = new Rectangle(20, 20, 'blue');
+rectangle.draw();
+console.log(rectangle.getArea());
+
+const triangle = new Triangle(20, 20, 'red');
+triangle.draw();
+console.log(triangle.getArea());
+
+
+// 6. Class checking: instanceOf
+console.log(rectangle instanceof Rectangle);
+console.log(triangle instanceof Rectangle);
+console.log(triangle instanceof Triangle);
+console.log(triangle instanceof Shape);
+console.log(triangle instanceof Object);
+console.log(triangle.toString());
