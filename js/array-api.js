@@ -1,13 +1,13 @@
 // Q1. make a string out of an array
 {
   const fruits = ['apple', 'banana', 'orange'];
-  const result = fruits.join('|');
+  const result = fruits.join(' | ');
   console.log(result);
 }
 
 // Q2. make an array out of a string
 {
-  const fruits = 'apple, kiwi, banana, cherry';
+  const fruits = '🍎,🥝,🍌,🍒';
   const result = fruits.split(',',);
   console.log(result);
 }
