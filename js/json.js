@@ -3,7 +3,9 @@
 
 // 1. Object to JSON
 // stringify(obj)
-let json = JSON.stringify(true);
+let json = true;
+console.log(json);
+json = JSON.stringify(true);
 console.log(json);
 
 json = JSON.stringify(['apple', 'banana']);
@@ -19,12 +21,15 @@ const rabbit = {
   },
 };
 
+json = rabbit;
+console.log(json);
 json = JSON.stringify(rabbit);
 console.log(json);
 
 json = JSON.stringify(rabbit, ['name', 'color', 'size']);
 console.log(json);
 
+// 콜백함수 이용
 json = JSON.stringify(rabbit, (key, value) => {
   console.log(`key: ${key}, value: ${value}`);
   return key === 'name' ? 'eunbin' : value;
@@ -42,7 +47,7 @@ const obj = JSON.parse(json, (key, value) => {
   return key === 'birthDate' ? new Date(value) : value;
 });
 console.log(obj);
-rabbit.jump();
+rabbit.jump();  // 얘는 tori can jump! 라고 나와야하는 거 아닌가?
 // obj.jump();
 
 console.log(rabbit.birthDate.getDate());
