@@ -17,7 +17,7 @@ const promise = new Promise((resolve, reject) => {
 });
 
 
-// 2. Consumers: then, catch, finally
+// // 2. Consumers: then, catch, finally
 promise
   .then(value => {
     console.log(value);
@@ -36,32 +36,41 @@ const fetchNumber = new Promise((resolve, reject) => {
 });
 
 fetchNumber
-  .then(num => num * 2)
-  .then(num => num * 3)
+  .then(num => num * 2) // num = 1 * 2 ===> num: 2
+  .then(num => num * 3) // num = 2 * 3 ===> num: 6
   .then(num => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(num - 1), 1000);
+    return new Promise((resolve, reject) => { // promise를 통해 다른 server로 전달
+      setTimeout(() => resolve(num - 1), 1000); // return num = 6 - 1 ===> num: 5
     });
   })
-  .then(num => console.log(num));
+  .then(num => console.log(num)); // 5 출력
 
 
-// 4. Error Handling
+// // 4. Error Handling
 const getHen = () =>
   new Promise((resolve, reject) => {
-    setTimeout(() => resolve('chicken'), 1000);
+    setTimeout(() => resolve('🐓'), 1000);
   });
 const getEgg = hen =>
   new Promise((resolve, reject) => {
-    setTimeout(() => reject(new Error(`error! ${hen} => egg`)), 1000);
+    // setTimeout(() => reject(new Error(`error! ${hen} => 🥚`)), 1000);
+    setTimeout(() => resolve(`${hen} => 🥚`), 1000);
   });
 const cook = egg =>
   new Promise((resolve, reject) => {
-    setTimeout(() => resolve(`${egg} => fried egg`), 1000);
+    setTimeout(() => resolve(`${egg} => 🍳`), 1000);
   });
+
+// getHen()
+//   .then(hen => getEgg(hen)) // 🐓
+//   .then(egg => cook(egg))   // 🐓 => 🥚
+//   .then(meal => console.log(meal)); // 🐓 => 🥚 => 🍳
 
 getHen()
   .then(getEgg)
+  .catch(error => {
+    return '🌭';
+  })
   .then(cook)
   .then(console.log)
   .catch(console.log);
