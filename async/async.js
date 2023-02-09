@@ -1,8 +1,15 @@
 // async & await
 // clear style of using promise :)
 
-
 // 1. async
+// promise 방법
+// function fetchUser() {
+//   return new Promise((resolve, reject) => {
+//     // do network request in 10 secs ...
+//     resolve('eunbin');
+//   })
+// }
+
 async function fetchUser() {
   // do network request in 10 secs....
   return 'eunbin';
@@ -20,12 +27,12 @@ function delay(ms) {
 
 async function getApple() {
   await delay(2000);
-  return 'apple';
+  return '🍎';
 }
 
 async function getBanana() {
   await delay(1000);
-  return 'banana';
+  return '🍌';
 }
 
 async function pickFruits() {
@@ -36,16 +43,18 @@ async function pickFruits() {
   return `${apple} + ${banana}`;
 }
 
-pickFruits().then(console.log);
-
+pickFruits()
+  .then(console.log);
 
 // 3. useful Promise APIs
+// all([])
 function pickAllFruits() {
   return Promise.all([getApple(), getBanana()])
     .then(fruits => fruits.join(' + '));
 }
 pickAllFruits().then(console.log);
 
+// race([])
 function pickOnlyOne() {
   return Promise.race([getApple(), getBanana()]);
 }
